@@ -6,15 +6,18 @@ export default function Products() {
     // https://fakestoreapi.com/products
     const [Products, setProducts] = useState([])
 
-    const getProducts = async () => {
-        await axios
-            .get("https://fakestoreapi.com/products")
-            .then(res => {
-                setProducts(res.data);
-            })
-    }
-
     useEffect(() => {
+        const getProducts = async () => {
+            try {
+                await axios
+                    .get("https://fakestoreapi.com/products")
+                    .then(res => {
+                        setProducts(res.data);
+                    })
+            } catch (error) {
+                console.log(error);
+            }
+        }
         getProducts();
     })
 
@@ -45,7 +48,7 @@ export default function Products() {
                                     </div>
                                     <div class="mt-3 flex items-center space-x-2">
                                         <span class="block text-sm font-semibold pr-1">Colors : </span>
-                                            {product.rating.rate}
+                                        {product.rating.rate}
                                     </div>
                                     <div class="mt-5 flex items-center space-x-2">
                                         <span class="block text-sm font-semibold pr-1">Size : </span>
